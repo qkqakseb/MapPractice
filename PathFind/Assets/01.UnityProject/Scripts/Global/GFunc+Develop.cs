@@ -49,67 +49,66 @@ public static partial class GFunc
     #endregion      // Assert for debug
 
     #region Vaild Func
-    // ì»´í¬ë„ŒíŠ¸ì˜ ìœ íš¨ì„±ì„ ê²€ì‚¬í•œë‹¤.
+    //! ÄÄÆ÷³ÍÆ®ÀÇ À¯È¿¼ºÀ» °Ë»çÇÑ´Ù.
     public static bool IsValid<T>(this T component_) where T : Component
     {
         Component convert_ = (Component)(component_ as Component);
         bool isInvalid = convert_ == null || convert_ == default;
         return !isInvalid;
-    }
+    }       // IsValid()
 
-    // ì˜¤ë¸Œì íŠ¸ì˜ ìœ íš¨ì„±ì„ ê²€ì‚¬í•œë‹¤.
+    //! ¿ÀºêÁ§Æ®ÀÇ À¯È¿¼ºÀ» °Ë»çÇÑ´Ù.
     public static bool IsValid(this GameObject obj_)
     {
         bool isInvalid = (obj_ == null || obj_ == default);
         return !isInvalid;
-    }
+    }       // IsValid()
 
-    // ë¦¬ìŠ¤íŠ¸ì˜ ìœ íš¨ì„±ì„ ê²€ì‚¬í•œë‹¤.
+    //! ¸®½ºÆ®ÀÇ À¯È¿¼ºÀ» °Ë»çÇÑ´Ù.
     public static bool IsValid<T>(this List<T> list_)
     {
         bool isInvalid = (list_ == null || list_ == default || list_.Count < 1);
         return !isInvalid;
-    }
-    // ë¦¬ìŠ¤íŠ¸ì˜ ìœ íš¨ì„±ì„ ê²€ì‚¬í•œë‹¤.
+    }       // IsValid()
+
+    //! ¸®½ºÆ®ÀÇ À¯È¿¼ºÀ» °Ë»çÇÑ´Ù.
     public static bool IsValid<T>(this List<T> list_, int index_)
     {
-        bool isInvalid = (list_.IsValid() == false) || (list_ == null || list_ == default || list_.Count <= index_);
+        bool isInvalid = (list_.IsValid() == false) ||
+            (index_ < 0 || list_.Count <= index_);
         return !isInvalid;
-    }
+    }       // IsValid()
+
     #endregion      // Vaild Func
 
-    // ! ë¦¬ìŠ¤íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¦¬í„´í•˜ëŠ” í•¨ìˆ˜
+    //! ¸®½ºÆ®¸¦ »ı¼ºÇØ¼­ ¸®ÅÏÇÏ´Â ÇÔ¼ö
     /**
-    * @param int listLength : ìƒì„±í•  ë¦¬ìŠ¤íŠ¸ì˜ ê¸¸ì´
-    * @param int startIndex : ë¦¬ìŠ¤íŠ¸ì— ì—°ì†ìœ¼ë¡œ í• ë‹¹í•  ì¸ë±ìŠ¤ì˜ ì‹œì‘ ìˆ«ì
-    * @return List<T> list_ : ì—°ì†ëœ ìˆ«ìë¡œ ìƒì„±í•œ ë¦¬ìŠ¤íŠ¸
-    */
-
+     * @param int listLength : »ı¼ºÇÒ ¸®½ºÆ®ÀÇ ±æÀÌ
+     * @param int startIndex : ¸®½ºÆ®¿¡ ¿¬¼ÓÀ¸·Î ÇÒ´çÇÒ ÀÎµ¦½ºÀÇ ½ÃÀÛ ¼ıÀÚ
+     * @return List<T> list_ : ¿¬¼ÓµÈ ¼ıÀÚ·Î »ı¼ºÇÑ ¸®½ºÆ®
+     */
     public static List<int> CreateList(int listLength, int startIndex = 0)
     {
         List<int> list_ = new List<int>();
-        for (int i = 0; i < listLength; i++)
+        for(int i=0; i < listLength; i++)
         {
             list_.Add(startIndex + i);
         }
 
         return list_;
-    } // CreateList()
+    }       // CreateList()
 
-
-
-    // ë‘ ë³€ìˆ˜ì˜ ê°’ì„ Swap í•˜ëŠ” í•¨ìˆ˜
-    public static void Swap<T>(ref T sourValue, ref T desValue)
+    //! µÎ º¯¼öÀÇ °ªÀ» Swap ÇÏ´Â ÇÔ¼ö
+    public static void Swap<T>(ref T sourValue, ref T destValue)
     {
         T tempValue = sourValue;
-        sourValue = desValue;
-        desValue = tempValue;
-    } // Swap()
+        sourValue = destValue;
+        destValue = tempValue;
+    }       // Swap()
 
-    // ë‘ ë³€ìˆ˜ì˜ ê°’ì„ Swap í•˜ëŠ” í•¨ìˆ˜
-    public static void Swap<T>((T sourValue, T desValue) swapValue)
+    //! µÎ º¯¼öÀÇ °ªÀ» Swap ÇÏ´Â ÇÔ¼ö
+    public static void Swap<T>( (T sourValue, T destValue) swapValue)
     {
-        (T tempValue, T desValue) = (swapValue.desValue, swapValue.sourValue);
-    } // Swap()
-
+        (T sourValue, T destValue) = (swapValue.destValue, swapValue.sourValue);
+    }       // Swap()
 }
